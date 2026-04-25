@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Store | Shop Latest Styles</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+      
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            background-color: #f8f9fa;
+        }
+        
+       
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* ===== NAVIGATION BAR ===== */
+        nav {
+            background-color: #f8f9fa;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4a8d9e;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            white-space: nowrap;
+        }
+        
+        .logo i {
+            font-size: 28px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        .nav-menu a {
+            text-decoration: none;
+            color: #666666;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-menu a:hover {
+            color: #4a8d9e;
+        }
+        
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #4a8d9e;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+        
+        .cart-icon {
+            font-size: 20px;
+            color: #4a8d9e;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .cart-icon:hover {
+            transform: scale(1.1);
+        }
+        
+        /* ===== HERO BANNER ===== */
+        .hero {
+            background: linear-gradient(135deg, #4a8d9e , #386b77 100%);
+            color: #f8f9fa;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+        
+        .hero-btn {
+            background-color: #f8f9fa;
+            color: #4a8d9e;
+            padding: 12px 40px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .hero-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+      
+        .products-section {
+            padding: 60px 20px;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: #333;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: #4a8d9e;
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .product-card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(74, 141, 158, 0.2);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .product-description {
+            font-size: 14px;
+            color: #666666;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .product-price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff6b6b;
+        }
+        
+        .original-price {
+            font-size: 14px;
+            color: #666666;
+            text-decoration: line-through;
+            margin-right: 10px;
+        }
+        
+        .btn-add-cart {
+            background-color: #4a8d9e;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+     
+        .about-section {
+            padding: 80px 20px;
+            background-color: #ffffff;
+        }
+
+        .about-flex {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .about-text h3 {
+            font-size: 28px;
+            color: #4a8d9e;
+            margin-bottom: 20px;
+        }
+
+        /* ===== CONTACT SECTION ===== */
+        .contact-section {
+            padding: 80px 20px;
+            background-color: #f1f4f5;
+        }
+
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group input, .form-group textarea {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+        }
+
+        .btn-submit {
+            background-color: #4a8d9e;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 50px 20px 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #4a8d9e;
+        }
+        
+        .footer-column a {
+            font-size: 14px;
+            color: #bbb;
+            display: block;
+            margin-bottom: 10px;
+            text-decoration: none;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            text-align: center;
+            color: #999;
+            font-size: 14px;
+        }
+
+        /* =========================================
+           RESPONSIVE DESIGN (Media Queries)
+        ========================================= */
+
+        /* Tablets & Mobile (Up to 768px) */
+        @media (max-width: 768px) {
+            .nav-content {
+                padding: 10px 0;
+            }
+
+            .nav-menu {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background: white;
+                display: flex;
+                justify-content: space-around;
+                padding: 15px 0;
+                box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+                gap: 0;
+                z-index: 1000;
+            }
+
+            .nav-menu a {
+                font-size: 12px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+           
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+
+            .about-flex {
+                text-align: center;
+                flex-direction: column;
+            }
+
+            .contact-container {
+                padding: 20px;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+            
+            
+            body {
+                padding-bottom: 70px;
+            }
+        }
+
+       
+        @media (max-width: 480px) {
+            .hero {
+                padding: 60px 15px;
+            }
+
+            .hero h1 {
+                font-size: 26px;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .product-image {
+                height: 200px;
+            }
+
+            .logo span {
+                font-size: 18px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container">
+            <div class="nav-content">
+                <a href="#" class="logo">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>Fashion Store</span>
+                </a>
+                
+                <ul class="nav-menu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                
+                <div class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Welcome to Fashion Store</h1>
+            <p>Discover the latest trends and styles for your wardrobe</p>
+            <button class="hero-btn">Shop Now</button>
+        </div>
+    </section>
+
+    <section class="products-section" id="products">
+        <div class="container">
+            <h2 class="section-title">Our Latest Collection</h2>
+            
+            <div class="products-grid">
+                
+                <div class="product-card">
+                    <img src="hoddie.jfif" alt="Classic White Shirt" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name">Hoddie</div>
+                        <p class="product-description">Premium cotton blend shirt perfect for any occasion</p>
+                        <div class="product-footer">
+                            <div>
+                                <span class="original-price">$45</span>
+                                <span class="product-price">$29.99</span>
+                            </div>
+                            <button class="btn-add-cart">
+                                <i class="fas fa-plus"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="basketball.jpg" alt="Blue Denim Jeans" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name">T-shirt Basketball</div>
+                        <p class="product-description">Comfortable and stylish denim for everyday wear</p>
+                        <div class="product-footer">
+                            <div>
+                                <span class="original-price">$60</span>
+                                <span class="product-price">$39.99</span>
+                            </div>
+                            <button class="btn-add-cart">
+                                <i class="fas fa-plus"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="running-shoes.jpg" alt="running shoes" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name">Running Shoes</div>
+                        <p class="product-description">Light and breathable dress perfect for warm days</p>
+                        <div class="product-footer">
+                            <div>
+                                <span class="original-price">$55</span>
+                                <span class="product-price">$34.99</span>
+                            </div>
+                            <button class="btn-add-cart">
+                                <i class="fas fa-plus"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="short.jfif" alt="Athletic Sneakers" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name">Athletic Shorts</div>
+                        <p class="product-description">Comfortable and stylish shorts for everyday wear</p>
+                        <div class="product-footer">
+                            <div>
+                                <span class="original-price">$85</span>
+                                <span class="product-price">$59.99</span>
+                            </div>
+                            <button class="btn-add-cart">
+                                <i class="fas fa-plus"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="erbuds.jpg" alt="Leather Jacket" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name">Earbuds</div>
+                        <p class="product-description">Branding earbuds to hear anything with clarity</p>
+                        <div class="product-footer">
+                            <div>
+                                <span class="original-price">$120</span>
+                                <span class="product-price">$79.99</span>
+                            </div>
+                            <button class="btn-add-cart">
+                                <i class="fas fa-plus"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&h=400&fit=crop" alt="Stylish Sunglasses" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name">Stylish Sunglasses</div>
+                        <p class="product-description">UV protection with trendy frame design</p>
+                        <div class="product-footer">
+                            <div>
+                                <span class="original-price">$65</span>
+                                <span class="product-price">$44.99</span>
+                            </div>
+                            <button class="btn-add-cart">
+                                <i class="fas fa-plus"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section" id="about">
+        <div class="container">
+            <h2 class="section-title">About Our Store</h2>
+            <div class="about-flex">
+                <div class="about-text">
+                    <h3>We Define Modern Style</h3>
+                    <p>Since 2026, Fashion Store has been a leader in high-quality apparel. We believe that fashion is more than just clothes; it's a way to express who you are without having to speak.</p>
+                    <br>
+                    <p>Our mission is to provide sustainable, stylish, and affordable fashion to everyone, everywhere. Every piece in our collection is handpicked for its quality and trend-setting potential.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-container">
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" placeholder="email@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea rows="5" placeholder="How can we help you?"></textarea>
+                    </div>
+                    <button type="button" class="btn-submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                
+                <div class="footer-column">
+                    <h3>About Us</h3>
+                    <p>Fashion Store brings you the latest trends and highest quality clothing from around the world.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <a href="#home">Home</a>
+                    <a href="#products">Products</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <p>Email: support@fashionstore.com</p>
+                    <p>Phone: +1 (555) 123-4567</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Follow Us</h3>
+                    <a href="#"><i class="fab fa-facebook"></i> Facebook</a>
+                    <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
+                    <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+                </div>
+                
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 Fashion Store. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
